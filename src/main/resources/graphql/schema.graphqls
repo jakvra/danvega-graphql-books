@@ -3,6 +3,7 @@ type Mutation {
     addBook(book: BookInput!): Book
     updateBook(id: ID!, book: BookInput!): Book
     deleteBook(id: ID!): Book
+    batchCreate(books: [BookInput!]!): [Book]
 }
 
 type Query {

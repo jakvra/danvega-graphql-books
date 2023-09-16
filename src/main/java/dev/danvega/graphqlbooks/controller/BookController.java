@@ -3,6 +3,7 @@ package dev.danvega.graphqlbooks.controller;
 import dev.danvega.graphqlbooks.model.BookInput;
 import dev.danvega.graphqlbooks.repository.BookRepository;
 import dev.danvega.graphqlbooks.model.Book;
+import lombok.RequiredArgsConstructor;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
@@ -10,15 +11,11 @@ import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
-
 @Controller
+@RequiredArgsConstructor
 public class BookController {
 
     private final BookRepository bookRepository;
-
-    public BookController(BookRepository bookRepository) {
-        this.bookRepository = bookRepository;
-    }
 
     @QueryMapping
     public List<Book> findAllBooks() {
@@ -39,6 +36,11 @@ public class BookController {
     @MutationMapping
     public Book addBook(@Argument BookInput book) {
         return bookRepository.save(new Book(book.title(),book.pages(),book.author()));
+    }
+
+    @MutationMapping
+    public List<Book> batchCreate(@Argument List<BookInput> books) {
+        return bookRepository.saveAll(books.stream().map(book -> new Book(book.title(),book.pages(),book.author())).toList());
     }
 
     @MutationMapping

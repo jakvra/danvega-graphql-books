@@ -1,10 +1,16 @@
 package dev.danvega.graphqlbooks.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
 public class Book {
 
     @Id
@@ -17,53 +23,10 @@ public class Book {
 //    @JoinColumn(name = "book_id")
     private List<Review> reviews;
 
-    public Book() {
-    }
-
     public Book(String title, Integer pages, String author) {
         this.title = title;
         this.pages = pages;
         this.author = author;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public Integer getPages() {
-        return pages;
-    }
-
-    public void setPages(Integer pageCount) {
-        this.pages = pageCount;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public List<Review> getReviews() {
-        return reviews;
-    }
-
-    public void setReviews(List<Review> reviews) {
-        this.reviews = reviews;
     }
 
     @Override
